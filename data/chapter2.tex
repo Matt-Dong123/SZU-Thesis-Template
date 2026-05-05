@@ -1,0 +1,27 @@
+% !Mode:: "TeX:UTF-8"
+\chapter{背景知识}
+\label{chapter:background}
+\cnpageheader{第二章~~~~背景知识}
+
+
+本章旨在系统阐述本研究涉及的关键背景知识与技术基础，为后续研究工作提供理论支撑。
+xxx oiuwhiudsasidgbasgbdsadbshad
+sadsa sad as
+
+
+
+
+\section{图神经网络}
+
+图神经网络（Graph Neural Networks, GNNs）是一类专门用于处理图结构数据的深度学习模型，并被广泛用于处理图的特征表示~\cite{kipf2016semi}。
+中，第$k$层的卷积运算可以总结为以下公式。
+\begin{align} 
+c_v^k &=\text{\textbf{Combine}} \left(h_v^{k-1} \right) \\
+h_v^k &=\text{\textbf{Aggregate}} \left(c_u^k|u\in N(v) \cup \{v\} \right) 
+\end{align}
+最终经过跨多层的迭代计算，输出将包含顶点的原始特征、邻居特征以及输入图的结构信息。
+
+
+
+\section{本章小结}
+本章围绕后续研

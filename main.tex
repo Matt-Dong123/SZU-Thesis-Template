@@ -1,0 +1,130 @@
+%%%%%%%%%% !TEX program = pdflatex %%%%%%%%%%
+% !TEX program = pdflatex
+\documentclass[a4paper,12pt,openany,twoside]{book}
+% \documentclass[a4paper,12pt,openany,twoside]{ctexart}
+% 当目录多于1页时，使用\thispagestyle{empty}和\pagestyle{empty}，都无法完全清除目录的页眉页脚格式，需要使用到下面的\AtBeginDocument{}代码
+\AtBeginDocument{
+	\addtocontents{toc}{\protect\thispagestyle{empty}}%
+	\addtocontents{lof}{\protect\thispagestyle{empty}}%
+}
+
+\usepackage{caption}
+
+% \usepackage{xcolor}
+% \usepackage{soulutf8}
+% \usepackage{array}
+\input{setup/package}                      % 定义本文所使用宏包
+\graphicspath{{figures/}}                  % 定义所有的.eps文件在figures子目录下
+\setmainfont{Times New Roman}         %%%%%%%%%% 设置主英文字体
+
+
+
+\begin{document}                           % 开始全文
+\input{setup/format}                       % 完成对论文各个部分格式的设置
+
+\frontmatter                               % 以下是论文导言部分，包括论文的封面，中英文摘要和中文目录
+
+\cleardoublepage
+\includepdf[pages=-]{data/cover.pdf}
+% \includepdf[pages=1]{data/cover.pdf}
+% \newpage
+% \thispagestyle{empty}
+% \mbox{}
+% \newpage
+% \includepdf[pages=2]{data/cover.pdf}
+% \newpage
+% \thispagestyle{empty}
+% \mbox{}
+% \newpage
+
+\cleardoublepage
+
+\input{data/cnabstract}						% 中文摘要
+\input{data/enabstract}						% 英文摘要
+
+\pagestyle{empty}		% modified by Jon: 去掉页眉页脚
+% 目录
+\renewcommand{\contentsname}{\sanhao\hei\bfseries\hspace*{\fill}\text{目}\quad \text{录}\hspace*{\fill}}    % 设置“目录”二字的格式
+
+\renewcommand{\listfigurename}{\sanhao\hei\bfseries\hspace*{\fill}\text{图}\quad \text{索}\quad \text{引}\hspace*{\fill}}    % 设置“目录”二字的格式
+
+\renewcommand{\listtablename}{\sanhao\hei\bfseries\hspace*{\fill}\text{表}\quad \text{索}\quad \text{引}\hspace*{\fill}}    % 设置“目录”二字的格式
+
+\renewcommand{\listalgorithmname}{\sanhao\hei\bfseries\hspace*{\fill}\text{算}\quad \text{法}\quad \text{索}\quad \text{引}\hspace*{\fill}}    % 设置“目录”二字的格式
+
+\newcommand{\myhl}[1]{\colorbox{yellow}{#1}} % 自定义高亮命令
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+\tableofcontents                % 中文目录
+\cleardoublepage
+
+\pagestyle{empty}
+\listoffigures
+\thispagestyle{empty}
+\cleardoublepage
+
+\pagestyle{empty}
+\listoftables
+\thispagestyle{empty}
+\cleardoublepage
+
+\pagestyle{empty}
+\listofalgorithms
+\thispagestyle{empty}
+\cleardoublepage
+
+% 正文部分
+\defaultfont
+\pagestyle{plain}
+\mainmatter\sloppy\raggedbottom
+%\renewcommand{\ALC@linenosize}{\xiaosi}
+\renewcommand\arraystretch{1.5}
+\renewcommand{\algorithmicrequire}{\textbf{输入:}}
+\renewcommand{\algorithmicensure}{\textbf{输出:}}
+\setlength{\intextsep}{2pt}
+\setlength{\abovecaptionskip}{2pt}
+\setlength{\belowcaptionskip}{2pt}
+
+% 内容比较多的时候，编译速度较慢，可以将不同章节放在不同文件中，注释掉其他章节，只编译正在撰写的章节，以提升编译速度
+
+\include{data/chapter1}
+\include{data/chapter2}
+\include{data/chapter3}
+\include{data/chapter4}
+\include{data/chapter5}
+
+
+\defaultfont
+\bibliographystyle{gbt7714-numerical}
+\phantomsection
+\cnpageheader{参考文献}
+\addcontentsline{toc}{chapter}{参考文献}          
+\bibliography{references}	
+\renewcommand\thefigure{A.\arabic{figure}}			% 将附录中的图像的id的章节num设置为A
+
+\include{data/acknowledgements}						% 致谢
+
+\include{data/publications}							% 研究成果
+
+% 针对附录重新定义目录格式，去掉页码和前面的点
+\titlecontents{chapter}
+    [0em] % 左边距
+    {\song\fontsize{12pt}{20pt}\selectfont} % 前缀格式
+    {} % 章节号
+    {} % 无章节号时的处理
+    {\titlerule*[5pt]{}} % 页码前的填充
+\titlecontents{subsection}
+    [2em]
+    {\song\fontsize{12pt}{20pt}\selectfont} %
+    {\thecontentslabel\quad}{} %
+    {\hspace{.25em}\titlerule*[5pt]{}}
+    
+% \addcontentsline{toc}{chapter}{附：指导教师对研究生学位论文的学术评语}
+% \includepdf[pages=-]{data/supervisor-comment.pdf}
+
+% \addcontentsline{toc}{subsection}{答辩委员会决议书}
+% \includepdf[pages=-]{data/committee-decision.pdf}
+
+\clearpage
+\end{document}                                   
